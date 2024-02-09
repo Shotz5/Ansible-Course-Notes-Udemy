@@ -1,0 +1,39 @@
+================================================================================
+Ansible Handlers, Roles, and Collections
+================================================================================
+
+--------------------------------------------------------------------------------
+Introduction to Handlers
+--------------------------------------------------------------------------------
+
+- Can define action to restart the web server service when the configuration file is modified
+- Tasks triggered by events/notifications
+- Defined in playbook, executed when notified by a task
+- Manage actions based on system state/configuration changes
+
+tasks:
+    - name: Copy application code
+      copy:
+        src: app_code/
+        dest: /opt/application
+      notify: Restart Application Service
+
+handlers:
+    - name: Restart Application Service
+      service:
+        name: application_service
+        state: restarted
+
+--------------------------------------------------------------------------------
+Ansible Roles
+--------------------------------------------------------------------------------
+
+- Can create a "role" which is basically a function of tasks
+- Create the directory structure
+    - ansible-galaxy init <name> 
+        - Creates the dirtectory structure
+- How does the playbook know where the role is?
+    - Create directory called "roles" in playbook directory and move it there
+    - Can moves roles to common directory /etc/ansible/roles
+- To install role, ansible-galaxy install xxxx
+- ansible.builtin.ansible_galaxy_collection
