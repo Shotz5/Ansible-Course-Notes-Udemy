@@ -43,24 +43,62 @@ Ansible-Lint
     - Inconsistent indentation
     - Name types inconsistent
 
-In this lab exercise you will use below hosts. Please note down some details about these hosts as given below :
+--------------------------------------------------------------------------------
+Conditionals
+--------------------------------------------------------------------------------
 
+- Some servers may have differences that need to be accounted for with conditionals
+    - ie apt on Ubuntu vs Yum on Red Hat
+- use "when: <condition>" key
+    - ansible_os_family == 'RedHat', 'Debian', etc.
+    - 'or', 'and', ''
+- conditionals in loops
+    vars:
+        packages:
+            - name: nginx
+              required: True
+            - name: mysql
+              required: True
+            - name: apache
+              required: False
+    tasks:
+        - name: install "{{ item.name }} on Debian"
+          apt:
+            name: "{{ item.name }}"
+            state: present
+          when: item.required == True
+          loop: "{{ packages }}"
 
-student-node :- This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
+--------------------------------------------------------------------------------
+Ansible Conditionals based on Facts, Variables, Re-use
+--------------------------------------------------------------------------------
 
+- ansible_facts['os_family'] == 'Debian'
 
-node01 :- This host will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
+--------------------------------------------------------------------------------
+Loops
+--------------------------------------------------------------------------------
 
+- What if we want to create a lot of users?
+- "loop:" executes on each item inside the list
+- Stores the value in the loop in a variable "item"
+    - "user: name='{{ item }}'  state=present"
+- Can have key-values for each dictionary item in a loop
+    loop:
+      - name: joe
+        uid: 1010
+      - name: bama
+        uid: 1011
+    
+    - "user: name='{{ item.name }}' state = present uid = '{{ item.uid }}'"
 
-User: bob
-Password: caleston123
-
-
-node02 :- This host will also act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
-
-
-User: bob
-Password: caleston123
-
-
-Note: Please type exit or logout on the terminal or press CTRL + d to log out from a specific node.
+- with_*
+    - with_items:
+        - joe
+        - george
+            ...
+    - with_file:
+    - with_url
+    - with_mongodb
+    - can be used with anything that has a lookup plugin
+- lookup plugin
