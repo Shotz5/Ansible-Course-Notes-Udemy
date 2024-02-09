@@ -1,0 +1,48 @@
+================================================================================
+Ansible Modules
+================================================================================
+
+- System
+    - User, group, etc
+- Commands
+    - command, expect, raw, script, shell
+- Files
+    - acl, archive, copy, file, find, lineinfile, replace, stat, template, unarchive
+- Database
+    - mongodb
+    - mssql
+    - mysql
+    - postgresql
+- Cloud
+    - Amazon,
+    - Atomic,
+    - Azure,
+    - VMWare
+- Windows
+    - win_copy
+    - win_command
+    - win_domain
+        ...
+- More...
+
+- command - execute a command on a remote node
+    - command: cat /etc/resolv.conf
+
+- script - run a script located on the Ansible machine on remote nodes
+- service - Manages services
+    - servive: name=mysql state=started
+    OR
+    - service:
+        name: mysql
+        state: started
+
+--------------------------------------------------------------------------------
+Introduction to Ansible Plugins
+--------------------------------------------------------------------------------
+
+- May need dynamically configured ssl certs, load balancing, etc.
+- Ansible plugins provide external features beyond the core functionality
+- Inventory plugin, module plugin, action plugin, callback plugin
+
+- Plugins available to communicate with APIs, action plugin
+- Lookup plugins, filter plugins, connection plugins, inventory plugins, callback plugins (capture events and action)
