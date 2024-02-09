@@ -1,0 +1,29 @@
+================================================================================
+Advanced Topics
+================================================================================
+
+--------------------------------------------------------------------------------
+Introduction to Templating
+--------------------------------------------------------------------------------
+
+- How can you template an email or web page
+- Template -> Variables -> Finished Page
+- Can be done with Ansible
+- Jinja2 is a templating engine used in Ansible
+    - String manipulation
+    - {{ my_name | upper }} => pipes to upper case
+    - {{ my_name | lower }}
+    - {{ my_name | title }}
+    - {{ my_name | replace ("Bond", "Borne") }}
+    - {{ my_name | default("James") }}
+    - min, max, unique, union(), intesect(), random, join()
+- Loops
+    - {% for number in [0,1,2,3,4,5] %}
+    - {{ number }}
+    - {% if number == 2 %}
+
+--------------------------------------------------------------------------------
+Jinja2 Templates for Dynamic Configs
+--------------------------------------------------------------------------------
+
+- Can use j2 files
