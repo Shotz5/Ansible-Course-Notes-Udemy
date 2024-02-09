@@ -1,0 +1,66 @@
+================================================================================
+Ansible Playbooks
+================================================================================
+
+--------------------------------------------------------------------------------
+Ansible Playbooks
+--------------------------------------------------------------------------------
+
+- Playbook - a single YAML file containing a set of plays
+    - Contains a set of tasks to be run on hosts
+    - tasks - action to be performed on the host
+    - List of dictionaries
+        - Each dictionary is a play
+        - all dictionaries are ordered, key-value pairs are not
+            - (ie plays are executed top to bottom, tasks top to botton, but "name" and "hosts" don't need to be ordered)
+    - ansible-doc -l to list available modules to ansible
+    - ansible-playbook playbook.yml
+
+--------------------------------------------------------------------------------
+Verifying Playbooks
+--------------------------------------------------------------------------------
+
+- How do you prevent production downtime due to a bad ansible script?
+- Rehearsal that allows you to catch and rectify errors
+- Check mode
+    - Ansible's "dry run" where no actual changes are made on hosts
+        - See made changes without applying them
+        - use "--check" parameter
+- Diff mode
+    - Shows differences between current state and after state
+        use "--check --diff"
+        - Useful for understanding differences from before and after
+- Syntax check
+    - "--syntax-check"
+
+--------------------------------------------------------------------------------
+Ansible-Lint
+--------------------------------------------------------------------------------
+
+- Performs linting on ansible playbooks, roles, collections
+- Checks for potential errors, bugs, styling errors, and suspicious constructs
+- Providing valueable insights and catches things that may slip past
+    - Inconsistent indentation
+    - Name types inconsistent
+
+In this lab exercise you will use below hosts. Please note down some details about these hosts as given below :
+
+
+student-node :- This host will act as an Ansible master node where you will create playbooks, inventory, roles etc and you will be running your playbooks from this host itself.
+
+
+node01 :- This host will act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
+
+
+User: bob
+Password: caleston123
+
+
+node02 :- This host will also act as an Ansible client/remote host where you will setup/install some stuff using Ansible playbooks. Below are the SSH credentials for this host:
+
+
+User: bob
+Password: caleston123
+
+
+Note: Please type exit or logout on the terminal or press CTRL + d to log out from a specific node.

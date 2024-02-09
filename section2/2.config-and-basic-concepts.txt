@@ -1,0 +1,35 @@
+================================================================================
+Configuration and Basic Concepts
+================================================================================
+
+--------------------------------------------------------------------------------
+Introduction to Ansible Config Files
+--------------------------------------------------------------------------------
+
+- Ansible config files stores at /etc/ansible/ansible.cfg
+    - Divided into many sections - containing number of options and values
+        - defaults - logs, modules, plugins, facts, connection attempts, max hosts, etc.
+        - inventory plugin options
+    - /opt/web-playbooks, /opt/db-playbooks, /opt/network-playbooks
+        - Might have requirements to change config values depending on directory
+        - Can copy cfg to those directories and the playbook will pull values from the config file inside the directory
+        - Overrides defaults
+        - Can add $ANSIBLE_CONFIG to beginning of command line to specify location of config
+    - Order of configs
+        - 1. File specified through environment variable
+        - 2. File in current working directory
+        - 3. File in users home directory
+        - 4. File in /etc/ansible/ansible.cfg
+    - Can change config value for specific runs by changing the environment variable
+        - eg gathering = implicit => `ANSIBLE_GATHERING=explicit ansible-playbook playbook.yml`
+        - Linux use "export"
+        - Highest precedence
+    - `ansible-config list` to list all configurations
+    - `ansible-config view` to show current config file
+    - `ansible-config dump` shows list of current settings ansible detects and where from
+
+--------------------------------------------------------------------------------
+Introduction to YAML
+--------------------------------------------------------------------------------
+
+- I know YAML

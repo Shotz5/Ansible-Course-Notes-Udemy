@@ -1,0 +1,88 @@
+================================================================================
+Ansible Variables
+================================================================================
+
+--------------------------------------------------------------------------------
+Ansible Variables
+--------------------------------------------------------------------------------
+
+- Stores information which varies per host
+- ansible_host, ansible_connection, ansible_ssh_pass all examples of variables
+- Can add "vars" key to playbook to define vars
+    - eg vars: dns_server: 10.0.0.1
+- How to use it?
+    - Replace hard coded variable in tasks
+    - lineinfile:
+        path: /etc/resolv.conf
+        line: 'nameserver {{ dns_server }}'
+    - Can add variables in inventory file or variable file
+
+--------------------------------------------------------------------------------
+Variable Types
+--------------------------------------------------------------------------------
+
+- Strings, sequence of characters, surrounded by "" or ''
+- Number variables - int or floating point, used in math operations
+- Boolean - true/false - conditional
+- List variables to hold an ordered collection of any type
+    packages:
+        - nginx
+        - postgresql
+        - git
+    - Accessed using indexes {{ packages[0] }}
+- Dictionary variables to hold key-value pairs
+    user:
+        name:
+        pass:
+
+--------------------------------------------------------------------------------
+Registering Variables and Variable Precedence
+--------------------------------------------------------------------------------
+
+- Variable precedence (lowest is higher)
+    - Role Defaults
+    - Group Vars
+    - Host Vars
+    - Host Facts
+    - Play Vars (--extra-vars environment vars)
+    - Role Vars
+    - Include Vars
+    - Set Facts
+    - Extra Vars
+- Can take result from one command and pass it to another command using normal object notation
+- Can only be used within the scope of that host
+- Variable scoping
+    - "vars:" - only defined within that play
+    - Any variable defined for that host, group, inventory, group of group variable
+
+--------------------------------------------------------------------------------
+Magic Variables
+--------------------------------------------------------------------------------
+
+- Creates subprocess for each host
+    - Variable interpolation stage that ties variables to hosts
+        - How can web1 get web2's DNS host if you want to do it the bad way?
+        - hostvars['web2'].dns_server
+        - hostvars['web2'].ansible_host
+        - hostvars['web2'].ansible_facts.architecture... etc.
+            - hostvars['web2']['ansible_facts']['architecture']
+    - group_names
+        - Return all groups current host is part of
+        - {{ group_names }}
+    - inventory_hostname
+    - "Facts and magic variables"
+
+--------------------------------------------------------------------------------
+Ansible Facts
+--------------------------------------------------------------------------------
+
+- Details about the hosts information
+    - System info,
+    - OS version
+    - memory details
+    - etc.
+    - network
+    - Why is he listing so much, it's literally just "a bunch of system info"
+- Called facts - uses setup module, even if not used in the playbook, will do it
+- ansible_facts
+- can opt out of fact gathering by adding "gather_facts: no"

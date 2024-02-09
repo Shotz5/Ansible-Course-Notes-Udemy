@@ -1,0 +1,46 @@
+================================================================================
+Ansible Inventory
+================================================================================
+
+--------------------------------------------------------------------------------
+Ansible Inventory
+--------------------------------------------------------------------------------
+
+- In order to work on multiple servers, it needs to be able to communicate
+    - SSH - Linux
+    - Powershell Remote - Win
+- Agentless, doesn't need installation on target system
+- Stored in inventory file
+    - /etc/ansible/hosts
+    - Number of servers listed one after the other
+    - grouped by [<name>]
+- ansible_host - inventory parameter used to define fqdn of server
+    - eg. web  ansible_host=server1.company.com ansible_connection=ssh      ansible_user=root
+          db   ansible_host=server2.company.com ansible_connection = winrm  ansible_user=admin
+          web  ansible_host=server3.company.com ansible_connection=ssh      ansible_ssh_pass=<password>
+          db   ansible_host=server4.company.com ansible_connection = winrm 
+    - Can do localhost as well
+    - Should set up ssh key-based authentication
+
+
+--------------------------------------------------------------------------------
+Inventory Formats
+--------------------------------------------------------------------------------
+
+- Why do we need inventory formats?
+    - For small startup, simple ini format will suffice
+    - YAML format will allow for better organisation structure and organisation
+    - Flexibility, geographic location
+    - Supports INI and YAML
+        - YAML more structured and flexible
+
+--------------------------------------------------------------------------------
+Grouping and Parent-Child Relationships
+--------------------------------------------------------------------------------
+
+- Hundreds of servers spread out all over
+    - Some web servers, db servers, application servers
+    - Good to categorize servers based on functionality or other business case
+    - Target web servers label - does things to all web servers, not just hypothetical
+    - Parent/Child group capability
+        - Web servers_US, web servers_EU, web servers_IN

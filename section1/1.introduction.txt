@@ -1,0 +1,12 @@
+================================================================================
+Introduction
+================================================================================
+
+- Most people make Bash scripts to accomplish tasks like
+    - Provisioning
+    - Configuration
+    - Continuous Delivery
+    - Application Deployment
+    - Security Deployment
+- Ansible automates and executes all this on multiple servers
+- Can load information from SN, databases, etc to get information to be used in the scripts
